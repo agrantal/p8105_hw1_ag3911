@@ -1,23 +1,15 @@
 ---
-title: "hw1"
+title: "Homework 1: Amelia Grant-Alfieri, ag3911"
 output: github_document
 ---
 
-```{r setup, include=FALSE}
-knitr::opts_chunk$set(echo = TRUE)
-```
-
-## R Markdown
-
-This is an R Markdown document. Markdown is a simple formatting syntax for authoring HTML, PDF, and MS Word documents. For more details on using R Markdown see <http://rmarkdown.rstudio.com>.
-
-When you click the **Knit** button a document will be generated that includes both content as well as the output of any embedded R code chunks within the document. You can embed an R code chunk like this:
+# embed R code: 
 
 ```{r cars}
 summary(cars)
 ```
 
-## Including Plots
+# include plots
 
 You can also embed plots, for example:
 
@@ -43,6 +35,14 @@ The purpose of this file is to present a couple of basic plots using `ggplot`.
 
 First we create a dataframe containing variables for our plots.
 
+# Problem 1
+
+First, we create a dataframe containing four elements:
+- A random sample of size 10 from a uniform [0,5] distribution
+- A logical vector indicating whether elements of the sample are greater than 2
+- A (length-10) character vector
+- A (length-10) factor vector. 
+
 ```{r df_create}
 set.seed(1234)
 
@@ -51,6 +51,37 @@ plot_df = tibble(
   y = 1 + 2 * x + rnorm(1000)
 )
 ```
+
+Second, we caluclate the mean of each variable. Then we analyze what works and what doesn't work and why.
+
+Third, we apply the as.numeric function to the logical, character, and factor variables. Then we describe what happens.
+
+Fourth, we convert the character variable to factor to numeric and convert the factor variable from factor to character to numeric. Then we describe what happens. 
+
+# Problem 2
+
+First, we create a data frame containing five elements:
+- x: a random sample of size 1000 from a standard Normal distribution
+- y: a random sample of size 1000 from a standard Normal distribution
+- A logical vector indicating whether the  x + y > 0
+- A numeric vector created by coercing the above logical vector
+- A factor vector created by coercing the above logical vector-
+
+Second, we describe the vector using inline R code, including: i) the size of the dataset, ii) the mean and median of x, and iii) the proportion of cases for which the logical vector is  TRUE.
+
+Third, we make a scatterplot of y vs x and color points using the logical variable (adding color = ... inside of aes in your ggplot code should help). 
+
+Fourth, we make a scatterplot that color points using the numeric variable. Then we comment on the color scale. 
+
+Fifth, we make a scatterplot that color points using the factor variable. Then we comment on the color scale.
+
+Last, we export our first logical variable scatterplot to the project directory using  ggsave.
+
+
+
+
+
+
 
 First we show a histogram of the `x` variable.
 
