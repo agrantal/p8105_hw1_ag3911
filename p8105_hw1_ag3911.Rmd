@@ -3,37 +3,15 @@ title: "Homework 1: Amelia Grant-Alfieri, ag3911"
 output: github_document
 ---
 
-# embed R code: 
-
-```{r cars}
-summary(cars)
-```
-
-# include plots
-
-You can also embed plots, for example:
-
-```{r pressure, echo=FALSE}
-plot(pressure)
-```
-
 Note that the `echo = FALSE` parameter was added to the code chunk to prevent printing of the R code that generated the plot.
 
-```{r setup, include = FALSE}
+
+
+Before beginning, we must load the tidyverse package using `library(tidyverse)`.
+
+```
 library(tidyverse)
 ```
-
-
-
-
-
-
-
-
-
-The purpose of this file is to present a couple of basic plots using `ggplot`.
-
-First we create a dataframe containing variables for our plots.
 
 # Problem 1
 
@@ -42,21 +20,55 @@ First, we create a dataframe containing four elements:
 - A logical vector indicating whether elements of the sample are greater than 2
 - A (length-10) character vector
 - A (length-10) factor vector. 
-
-```{r df_create}
-set.seed(1234)
-
-plot_df = tibble(
-  x = rnorm(1000, sd = .5),
-  y = 1 + 2 * x + rnorm(1000)
+```{r}
+p1_df = tibble(
+  x = runif(10, min = 0, max = 5),
+  vec_log_above2 = c( x > 2),
+  vec_char = c("one", "two", "three", "four", "five", "six", "seven", "eight", "nine", "ten"),
+  vec_factor = factor(c("male", "female", "male", "female", "female", "female", "female", "male", "male", "female"))
 )
 ```
 
+
 Second, we caluclate the mean of each variable. Then we analyze what works and what doesn't work and why.
+```{r}
+mean(vec_log_above2)
+mean(vec_factor)
+mean(vec_char)
+```
+This runs smoothly for the numeric vector 'vec_log_above2' and generates a mean = 0.6. However, it produces an error stating that 'vec_char' and 'vec_factor' are not found. They are not numeric variables, and we can't calculate a mean for a non-numeric variable. 
+
 
 Third, we apply the as.numeric function to the logical, character, and factor variables. Then we describe what happens.
+```{r}
+p1_df$vec_log_above2 <- as.numeric(p1_df$vec_log_above2)
+p1_df$vec_char <- as.numeric(p1_df$vec_char)
+p1_df$vec_factor <- as.numeric(p1_df$vec_factor)
+```
+For 'vec_log_above2', 'TRUE' is changed to 1 and 'FALSE' is changed to 0.
+For 'vec_char', all values read 'NA' because characters cannot be read as categorical or numeric.
+For 'vec_factor', 'male' is changed to 2 and 'female' is changed to 1.  
+
 
 Fourth, we convert the character variable to factor to numeric and convert the factor variable from factor to character to numeric. Then we describe what happens. 
+```{r}
+p1_df$vec_char <- as.factor(p1_df$vec_char)
+```
+For vec_char, values remain 'NA' but the column label changes from <dbl> to <fct>
+```{r}
+p1_df$vec_char <- as.numeric(p1_df$vec_char)
+```
+For vec_char, values remain 'NA' but the column is relabeled <dbl>
+```{r}
+p1_df$vec_factor <- as.character(p1_df$vec_factor)
+```
+For vec_factor, values remain 2s or 1s, but the column label changes from <dbl> to <chr>
+```{r}
+p1_df$vec_factor <- as.numeric(p1_df$vec_factor)
+```
+For vec_factor, values remain 2s or 1s, but the column is relabled <dbl>
+```
+
 
 # Problem 2
 
@@ -65,33 +77,48 @@ First, we create a data frame containing five elements:
 - y: a random sample of size 1000 from a standard Normal distribution
 - A logical vector indicating whether the  x + y > 0
 - A numeric vector created by coercing the above logical vector
-- A factor vector created by coercing the above logical vector-
+- A factor vector created by coercing the above logical vector
+
+```{r}
+p2_df = tibble(
+  x = rnorm(1000)
+  y = rnorm(1000)
+  vec_log_sumabove0 = c( x + y > 0 )
+  vec_num = 
+  vec_factor = #labeling should be differene 
+)
+```
 
 Second, we describe the vector using inline R code, including: i) the size of the dataset, ii) the mean and median of x, and iii) the proportion of cases for which the logical vector is  TRUE.
 
-Third, we make a scatterplot of y vs x and color points using the logical variable (adding color = ... inside of aes in your ggplot code should help). 
-
-Fourth, we make a scatterplot that color points using the numeric variable. Then we comment on the color scale. 
-
-Fifth, we make a scatterplot that color points using the factor variable. Then we comment on the color scale.
-
-Last, we export our first logical variable scatterplot to the project directory using  ggsave.
-
-
-
-
-
-
-
-First we show a histogram of the `x` variable.
-
+for histogram of x variable:
 ```{r x_hist}
 ggplot(plot_df, aes(x = x)) + geom_histogram()
 ```
 
-Next we show a scatterplot of `y` vs `x`. 
+Third, we make a scatterplot of y vs x and color points using the logical variable (adding color = ... inside of aes in your ggplot code should help). 
 
 ```{r yx_scatter}
 ggplot(plot_df, aes(x = x, y = y)) + geom_point()
 ```
+
+Fourth, we make a scatterplot that color points using the numeric variable. Then we comment on the color scale. 
+
+```{r yx_scatter}
+ggplot(plot_df, aes(x = x, y = y)) + geom_point()
+```
+
+Fifth, we make a scatterplot that color points using the factor variable. Then we comment on the color scale.
+
+```{r yx_scatter}
+ggplot(plot_df, aes(x = x, y = y)) + geom_point()
+```
+
+Last, we export our first logical variable scatterplot to the project directory using  ggsave.
+
+```{r}
+```
+
+
+
 
