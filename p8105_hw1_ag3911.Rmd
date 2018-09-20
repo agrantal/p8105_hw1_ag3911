@@ -3,7 +3,6 @@ title: "Homework 1: Amelia Grant-Alfieri, ag3911"
 output: github_document
 ---
 
-
 Before beginning, load the tidyverse package. 
 ```{r include=FALSE}
 library(tidyverse)
